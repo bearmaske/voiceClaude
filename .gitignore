@@ -1,0 +1,6 @@
+.build/
+build/
+Dependencies/
+.DS_Store
+*.swp
+.claude/

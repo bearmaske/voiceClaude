@@ -42,7 +42,10 @@ build: deps
 	install_name_tool -id @executable_path/../Frameworks/libsherpa-onnx-c-api.dylib $(FRAMEWORKS_DIR)/libsherpa-onnx-c-api.dylib 2>/dev/null || true
 	install_name_tool -id @executable_path/../Frameworks/libonnxruntime.1.23.2.dylib $(FRAMEWORKS_DIR)/libonnxruntime.1.23.2.dylib 2>/dev/null || true
 	xattr -cr $(APP_BUNDLE)
-	codesign --force --sign - --deep $(APP_BUNDLE)
+	codesign --force --sign - $(FRAMEWORKS_DIR)/libonnxruntime.1.23.2.dylib
+	codesign --force --sign - $(FRAMEWORKS_DIR)/libsherpa-onnx-c-api.dylib
+	xattr -cr $(APP_BUNDLE)
+	codesign --force --sign - $(APP_BUNDLE)
 	@echo "Built $(APP_BUNDLE)"
 
 run: build
